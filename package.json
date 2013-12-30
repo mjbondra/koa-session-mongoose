@@ -1,0 +1,39 @@
+{
+  "name": "koa-session-mongoose",
+  "version": "0.1.1",
+  "description": "Mongose storage layer for Koa session middleware",
+  "main": "index.js",
+  "scripts": {
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --harmony --reporter spec test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mjbondra/koa-session-mongoose.git"
+  },
+  "keywords": [
+    "koa",
+    "session",
+    "mongodb",
+    "mongo",
+    "mongoose",
+    "store"
+  ],
+  "author": "Michael J. Bondra <mjbondra@umich.edu>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mjbondra/koa-session-mongoose/issues"
+  },
+  "homepage": "https://github.com/mjbondra/koa-session-mongoose",
+  "dependencies": {
+    "mongoose": "~3.8.3",
+    "q": "~0.9.7"
+  },
+  "devDependencies": {
+    "koa": "~0.2.0",
+    "koa-route": "~1.0.2",
+    "koa-session-store": "~0.1.0",
+    "mocha": "~1.16.2",
+    "should": "~2.1.1",
+    "supertest": "~0.8.2"
+  }
+}
