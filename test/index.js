@@ -5,11 +5,19 @@ var koa = require('koa')
   , route = require('koa-route')
   , request = require('supertest')
   , session = require('koa-session-store')
-  , should = require('should');;
+  , should = require('should');
 
 var app = koa();
 
-mongoose.connect('mongodb://127.0.0.1/koa_mongoose_store_test');
+var user = process.env.DBUSER || null
+  , password = process.env.DBPASS || null
+  , credentials = ( user ? ( password ? user + ':' + password : user ) + '@' : '' )
+  , host = process.env.DBHOST || '127.0.0.1'
+  , port = ( process.env.DBPORT ? ':' + process.env.DBPORT : '' )
+  , collection = process.env.DBCOLL || 'koa_mongoose_store_test'
+  , uri = 'mongodb://' + credentials + host + port + '/' + collection;
+
+mongoose.connect(uri);
 
 app.keys = ['some secret key'];
 app.use(session({
