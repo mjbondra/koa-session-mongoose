@@ -2,7 +2,6 @@
 var koa = require('koa')
   , mongoose = require('mongoose')
   , mongooseStore = require('../')
-  , Q = require('q')
   , route = require('koa-route')
   , request = require('supertest')
   , session = require('koa-session-store')
