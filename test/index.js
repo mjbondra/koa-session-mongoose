@@ -36,7 +36,7 @@ app.use(route.get('/destroy', function *() {
   this.status = 204;
 }));
 
-var server = app.listen(3005)
+var server = app.listen()
   , agent = request.agent(server)
   , sessionId;
 
