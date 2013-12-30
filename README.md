@@ -1,5 +1,7 @@
 # koa-session-mongoose
 
+[![Build Status](https://api.travis-ci.org/mjbondra/koa-session-mongoose.png)](https://travis-ci.org/mjbondra/koa-session-mongoose) [![NPM version](https://badge.fury.io/js/koa-session-mongoose.png)](http://badge.fury.io/js/koa-session-mongoose)
+
 Mongoose storage layer for [Koa session middleware](https://github.com/hiddentao/koa-session-store). This can be used instead of [koa-session-mongo](https://github.com/hiddentao/koa-session-mongo), for a more direct integration with an existing [Mongoose](http://mongoosejs.com) connection.
 
 ## Installation
