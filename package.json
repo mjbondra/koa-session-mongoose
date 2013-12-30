@@ -1,7 +1,7 @@
 {
   "name": "koa-session-mongoose",
   "version": "0.1.1",
-  "description": "Mongose storage layer for Koa session middleware",
+  "description": "Mongoose storage layer for Koa session middleware",
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --harmony --reporter spec test/*.js"
