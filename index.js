@@ -60,7 +60,7 @@ exports.create = function (options) {
       expires: options.expires
     }
   });
-  var Session = mongoose.model('Session', SessionSchema, options.collection);
+  var Session = mongoose.model('SessionStore', SessionSchema, options.collection);
 
   return new MongooseStore(Session);
 }

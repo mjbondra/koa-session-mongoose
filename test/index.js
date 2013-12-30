@@ -7,36 +7,28 @@ var koa = require('koa')
   , session = require('koa-session-store')
   , should = require('should');
 
-var app = koa();
-
-var user = process.env.DBUSER || null
-  , password = process.env.DBPASS || null
-  , credentials = ( user ? ( password ? user + ':' + password : user ) + '@' : '' )
-  , host = process.env.DBHOST || '127.0.0.1'
-  , port = ( process.env.DBPORT ? ':' + process.env.DBPORT : '' )
-  , collection = process.env.DBCOLL || 'koa_mongoose_store_test'
-  , uri = 'mongodb://' + credentials + host + port + '/' + collection;
-
+var uri = process.env.URI || 'mongodb://127.0.0.1/koa_mongoose_store_test';
 mongoose.connect(uri);
+
+var app = koa();
 
 app.keys = ['some secret key'];
 app.use(session({
   store: mongooseStore.create()
 }));
 
-var Session = mongoose.model('Session');
-
 var count = 0;
 
 app.use(route.get('/create', function *() {
-  count++;
   this.session.count = count;
+  this.session.count++;
+  this.status = 204;
+}));
+app.use(route.get('/read', function *() {
   this.status = 204;
 }));
 app.use(route.get('/update', function *() {
-  count = this.session.count || 0;
-  count++;
-  this.session.count = count;
+  this.session.count++;
   this.status = 204;
 }));
 app.use(route.get('/destroy', function *() {
@@ -46,6 +38,7 @@ app.use(route.get('/destroy', function *() {
 
 var server = app.listen()
   , agent = request.agent(server)
+  , Session = mongoose.model('SessionStore')
   , sessionId;
 
 describe('koa-session-mongoose', function () {
@@ -77,6 +70,19 @@ describe('koa-session-mongoose', function () {
       });
     });
   });
+  describe('Read', function () {
+    it('Should 204', function (done) {
+      agent
+        .get('/read')
+        .expect(204, done);
+    });
+    it('Should not change session document (count value should be 1)', function (done) {
+      Session.findOne({ _id: sessionId }, function (err, session) {
+        JSON.parse(session.blob).count.should.equal(1);
+        done();
+      });
+    });
+  });
   describe('Update', function () {
     it('Should 204', function (done) {
       agent
@@ -98,6 +104,19 @@ describe('koa-session-mongoose', function () {
     });
     it('Should delete session document', function (done) {
       Session.findOne({ _id: sessionId }, function (err, session) {
+        should.equal(session, null);
+        done();
+      });
+    });
+  });
+  describe('Read', function () {
+    it('Should 204', function (done) {
+      agent
+        .get('/read')
+        .expect(204, done);
+    });
+    it('Should not find a session document', function (done) {
+      Session.findOne({}, function (err, session) {
         should.equal(session, null);
         done();
       });
