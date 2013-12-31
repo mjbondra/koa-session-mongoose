@@ -2,7 +2,9 @@
 
 [![Build Status](https://api.travis-ci.org/mjbondra/koa-session-mongoose.png)](https://travis-ci.org/mjbondra/koa-session-mongoose) [![NPM version](https://badge.fury.io/js/koa-session-mongoose.png)](http://badge.fury.io/js/koa-session-mongoose)
 
-Mongoose storage layer for [koa-session-store](https://github.com/hiddentao/koa-session-store) or [koa-sess](https://github.com/dead-horse/koa-session). This can be used instead of [koa-session-mongo](https://github.com/hiddentao/koa-session-mongo) with [koa-session-store](https://github.com/hiddentao/koa-session-store), for a more direct integration with an existing [Mongoose](http://mongoosejs.com) connection.
+Mongoose storage layer for [koa-session-store](https://github.com/hiddentao/koa-session-store) or [koa-sess](https://github.com/dead-horse/koa-session).  
+
+This can be used instead of [koa-session-mongo](https://github.com/hiddentao/koa-session-mongo) with [koa-session-store](https://github.com/hiddentao/koa-session-store), for a more direct integration with an existing [Mongoose](http://mongoosejs.com) connection.
 
 ## Installation
    
@@ -15,11 +17,12 @@ npm install koa-session-mongoose
 This store requires either [koa-session-store](https://github.com/hiddentao/koa-session-store) or [koa-sess](https://github.com/dead-horse/koa-session).
 
 ```
-var session = require('koa-session-store');
+var session = require('koa-session-store'); // or you can use 'koa-sess'
 var mongoose = require('mongoose');
 var mongooseStore = require('koa-session-mongoose');
 var koa = require('koa');
 
+// mongoose connection must exist before creating a store with koa-session-mongoose
 mongoose.connect('mongodb://some_host/some_db');
 
 var app = koa();
@@ -30,7 +33,7 @@ app.use(session({
   store: mongooseStore.create()
 }));
 
-app.use(function *(){
+app.use(function *() {
   var n = this.session.views || 0;
   this.session.views = ++n;
   this.body = n + ' views';
@@ -45,7 +48,7 @@ You can specify model name, collection name, and expiration time (in seconds):
 ```
 app.use(session({
   store: mongooseStore.create({
-  	model: 'koaSession',
+  	model: 'KoaSession',
     collection: 'koaSessions',
     expires: 60 * 60 * 24 * 7	// 1 week
   })

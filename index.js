@@ -13,24 +13,15 @@ var MongooseStore = function (Session) {
 }
 
 /**
- * Load data for koa-session-store
+ * Load data
  */
-MongooseStore.prototype.load = function *(sid) {
-  var data = yield Q.ninvoke(this._session, 'findOne', { sid: sid });
-  if (data && data.sid) {
-    return data.blob;
-  } else {
-    return null;
-  }
-}
 
-/**
- * Load data for koa-sess
- */
-MongooseStore.prototype.get = function *(sid) {
+// for koa-sess
+MongooseStore.prototype.get = function *(sid, parse) {
   try {
     var data = yield Q.ninvoke(this._session, 'findOne', { sid: sid });
     if (data && data.sid) {
+      if (parse === false) return data.blob;
       return JSON.parse(data.blob);
     } else {
       return null;
@@ -40,26 +31,22 @@ MongooseStore.prototype.get = function *(sid) {
   }
 }
 
-/**
- * Save data for koa-session-store
- */
-MongooseStore.prototype.save = function *(sid, blob) {
-  var data = {
-    sid: sid,
-    blob: blob,
-    updatedAt: new Date()
-  };
-  yield Q.ninvoke(this._session, 'findOneAndUpdate', { sid: sid }, data, { upsert: true, safe: true });
+// for koa-session-store
+MongooseStore.prototype.load = function *(sid) {
+  return yield this.get(sid, false);
 }
 
 /**
- * Save data for koa-sess
+ * Save data
  */
+
+// for koa-sess
 MongooseStore.prototype.set = function *(sid, blob) {
+  if (typeof blob === 'object') blob = JSON.stringify(blob);
   try {
     var data = {
       sid: sid,
-      blob: JSON.stringify(blob),
+      blob: blob,
       updatedAt: new Date()
     }
     yield Q.ninvoke(this._session, 'findOneAndUpdate', { sid: sid }, data, { upsert: true, safe: true });
@@ -68,22 +55,27 @@ MongooseStore.prototype.set = function *(sid, blob) {
   }
 }
 
-/**
- * Remove data for koa-session-store
- */
-MongooseStore.prototype.remove = function *(sid) {
-  yield Q.ninvoke(this._session, 'remove', { sid: sid });
+// for koa-session-store
+MongooseStore.prototype.save = function *(sid, blob) {
+  yield this.set(sid, blob);
 }
 
 /**
- * Remove data for koa-sess
+ * Remove data
  */
+
+// for koa-sess
 MongooseStore.prototype.destroy = function *(sid) {
   try {
     yield Q.ninvoke(this._session, 'remove', { sid: sid });
   } catch (err) {
     return err;
   }
+}
+
+// for koa-session-store
+MongooseStore.prototype.remove = function *(sid) {
+  yield this.destroy(sid);
 }
 
 /**
