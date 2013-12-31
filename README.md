@@ -2,7 +2,7 @@
 
 [![Build Status](https://api.travis-ci.org/mjbondra/koa-session-mongoose.png)](https://travis-ci.org/mjbondra/koa-session-mongoose) [![NPM version](https://badge.fury.io/js/koa-session-mongoose.png)](http://badge.fury.io/js/koa-session-mongoose)
 
-Mongoose storage layer for [Koa session middleware](https://github.com/hiddentao/koa-session-store). This can be used instead of [koa-session-mongo](https://github.com/hiddentao/koa-session-mongo), for a more direct integration with an existing [Mongoose](http://mongoosejs.com) connection.
+Mongoose storage layer for [koa-session-store](https://github.com/hiddentao/koa-session-store) or [koa-sess](https://github.com/dead-horse/koa-session). This can be used instead of [koa-session-mongo](https://github.com/hiddentao/koa-session-mongo) with [koa-session-store](https://github.com/hiddentao/koa-session-store), for a more direct integration with an existing [Mongoose](http://mongoosejs.com) connection.
 
 ## Installation
    
@@ -12,13 +12,15 @@ npm install koa-session-mongoose
 
 ## Usage
 
+This store requires either [koa-session-store](https://github.com/hiddentao/koa-session-store) or [koa-sess](https://github.com/dead-horse/koa-session).
+
 ```
 var session = require('koa-session-store');
 var mongoose = require('mongoose');
 var mongooseStore = require('koa-session-mongoose');
 var koa = require('koa');
 
-mongoose.connect('mongodb://127.0.0.1/koa_app');
+mongoose.connect('mongodb://some_host/some_db');
 
 var app = koa();
 
@@ -38,11 +40,12 @@ app.listen(3000);
 console.log('listening on port 3000');
 ```
 
-You can specify collection name and expiration time (in seconds):
+You can specify model name, collection name, and expiration time (in seconds):
 
 ```
 app.use(session({
   store: mongooseStore.create({
+  	model: 'koaSession',
     collection: 'koaSessions',
     expires: 60 * 60 * 24 * 7	// 1 week
   })
@@ -52,8 +55,30 @@ app.use(session({
 
 ## Other Relevant Modules
 
+* [koa-sess](https://github.com/dead-horse/koa-session)
 * [koa-session-store](https://github.com/hiddentao/koa-session-store)  
 * [koa-session-mongo](https://github.com/hiddentao/koa-session-mongo)
+
+## Tests
+
+From root directory:
+
+```
+npm install
+npm test
+```
+
+If you require a specific MongoDB URI, specify it as follows before `npm test`:
+
+```
+export URI="mongo://[username:password@]host[:port]/[database]"
+```
+
+Otherwise, the following URI will be used:
+
+```
+mongodb://127.0.0.1/koa_mongoose_store_test
+```
 
 ## License
 
