@@ -71,7 +71,7 @@ npm test
 If you require a specific MongoDB URI, specify it as follows before `npm test`:
 
 ```
-export URI="mongo://[username:password@]host[:port]/[database]"
+export URI="mongodb://[username:password@]host[:port]/[database]"
 ```
 
 Otherwise, the following URI will be used:
