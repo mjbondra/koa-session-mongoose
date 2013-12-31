@@ -29,7 +29,6 @@ MongooseStore.prototype.load = function *(sid) {
  */
 MongooseStore.prototype.get = function *(sid) {
   try {
-    sid = this.prefix + sid;
     var data = yield Q.ninvoke(this._session, 'findOne', { sid: sid });
     if (data && data.sid) {
       return JSON.parse(data.blob);
@@ -58,7 +57,6 @@ MongooseStore.prototype.save = function *(sid, blob) {
  */
 MongooseStore.prototype.set = function *(sid, blob) {
   try {
-    sid = this.prefix + sid;
     var data = {
       sid: sid,
       blob: JSON.stringify(blob),
@@ -82,7 +80,6 @@ MongooseStore.prototype.remove = function *(sid) {
  */
 MongooseStore.prototype.destroy = function *(sid) {
   try {
-    sid = this.prefix + sid;
     yield Q.ninvoke(this._session, 'remove', { sid: sid });
   } catch (err) {
     return err;
