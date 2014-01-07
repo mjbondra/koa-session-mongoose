@@ -48,7 +48,7 @@ You can specify model name, collection name, and expiration time (in seconds):
 ```
 app.use(session({
   store: mongooseStore.create({
-  	model: 'KoaSession',
+    model: 'KoaSession',
     collection: 'koaSessions',
     expires: 60 * 60 * 24 * 7	// 1 week
   })
