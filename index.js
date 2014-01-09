@@ -29,7 +29,8 @@ MongooseStore.prototype.get = function *(sid, parse) {
       return null;
     }
   } catch (err) {
-    return err;
+    console.error(err.stack);
+    return null;
   }
 }
 
@@ -44,8 +45,8 @@ MongooseStore.prototype.load = function *(sid) {
 
 // for koa-sess
 MongooseStore.prototype.set = function *(sid, blob) {
-  if (typeof blob === 'object') blob = JSON.stringify(blob);
   try {
+    if (typeof blob === 'object') blob = JSON.stringify(blob);
     var data = {
       sid: sid,
       blob: blob,
@@ -53,7 +54,7 @@ MongooseStore.prototype.set = function *(sid, blob) {
     }
     yield this._findOneAndUpdate({ sid: sid }, data, { upsert: true, safe: true });
   } catch (err) {
-    return err;
+    console.error(err.stack);
   }
 }
 
@@ -71,7 +72,7 @@ MongooseStore.prototype.destroy = function *(sid) {
   try {
     yield this._remove({ sid: sid });
   } catch (err) {
-    return err;
+    console.error(err.stack);
   }
 }
 
