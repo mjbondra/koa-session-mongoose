@@ -42,7 +42,7 @@ module.exports = function (sessionLibrary, mongooseModel) {
     , Session = mongoose.model(mongooseModel)
     , sessionId;
 
-  describe('koa-session-mongoose for koa-sess', function () {
+  describe('koa-session-mongoose for ' + sessionLibrary, function () {
     before(function (done) {
       Session.remove({}, function (err) {
         done();
@@ -116,22 +116,12 @@ module.exports = function (sessionLibrary, mongooseModel) {
           .get('/read')
           .expect(204, done);
       });
-      if (sessionLibrary === 'koa-sess') {
-        it('Should find session document with null count value', function (done) {
-          Session.findOne({}, function (err, session) {
-            should.equal(JSON.parse(session.blob).count, null);
-            done();
-          });
+      it('Should not find a session document', function (done) {
+        Session.findOne({}, function (err, session) {
+          should.equal(session, null);
+          done();
         });
-      } else if (sessionLibrary === 'koa-session-store') {
-        it('Should not find a session document', function (done) {
-          Session.findOne({}, function (err, session) {
-            should.equal(session, null);
-            done();
-          });
-        });
-      }
+      });
     });
   });
-
-}
+};
