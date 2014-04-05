@@ -1,6 +1,6 @@
 {
   "name": "koa-session-mongoose",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Mongoose storage layer for Koa session middleware",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "mongoose",
     "store"
   ],
-  "author": "Michael J. Bondra <mjbondra@umich.edu>",
+  "author": "Michael J. Bondra <mjbondra@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mjbondra/koa-session-mongoose/issues"

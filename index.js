@@ -12,7 +12,7 @@ var MongooseStore = function (Session) {
   this._findOne = Promise.promisify(Session.findOne, Session);
   this._findOneAndUpdate = Promise.promisify(Session.findOneAndUpdate, Session);
   this._remove = Promise.promisify(Session.remove, Session);
-}
+};
 
 /**
  * Load data
@@ -32,12 +32,12 @@ MongooseStore.prototype.get = function *(sid, parse) {
     console.error(err.stack);
     return null;
   }
-}
+};
 
 // for koa-session-store
 MongooseStore.prototype.load = function *(sid) {
   return yield this.get(sid, false);
-}
+};
 
 /**
  * Save data
@@ -51,17 +51,17 @@ MongooseStore.prototype.set = function *(sid, blob) {
       sid: sid,
       blob: blob,
       updatedAt: new Date()
-    }
+    };
     yield this._findOneAndUpdate({ sid: sid }, data, { upsert: true, safe: true });
   } catch (err) {
     console.error(err.stack);
   }
-}
+};
 
 // for koa-session-store
 MongooseStore.prototype.save = function *(sid, blob) {
   yield this.set(sid, blob);
-}
+};
 
 /**
  * Remove data
@@ -74,12 +74,12 @@ MongooseStore.prototype.destroy = function *(sid) {
   } catch (err) {
     console.error(err.stack);
   }
-}
+};
 
 // for koa-session-store
 MongooseStore.prototype.remove = function *(sid) {
   yield this.destroy(sid);
-}
+};
 
 /**
  * Create a Mongoose store
@@ -102,4 +102,4 @@ exports.create = function (options) {
   var Session = mongoose.model(options.model, SessionSchema, options.collection);
 
   return new MongooseStore(Session);
-}
+};
