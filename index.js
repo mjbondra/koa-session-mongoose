@@ -42,9 +42,7 @@ MongooseStore.prototype.load = function *(sid) {
 /**
  * Save data
  */
-
-// for koa-sess
-MongooseStore.prototype.set = function *(sid, blob) {
+MongooseStore.prototype.set = MongooseStore.prototype.save = function *(sid, blob) {
   try {
     if (typeof blob === 'object') blob = JSON.stringify(blob);
     var data = {
@@ -58,27 +56,15 @@ MongooseStore.prototype.set = function *(sid, blob) {
   }
 };
 
-// for koa-session-store
-MongooseStore.prototype.save = function *(sid, blob) {
-  yield this.set(sid, blob);
-};
-
 /**
  * Remove data
  */
-
-// for koa-sess
-MongooseStore.prototype.destroy = function *(sid) {
+MongooseStore.prototype.destroy = MongooseStore.prototype.remove = function *(sid) {
   try {
     yield this._remove({ sid: sid });
   } catch (err) {
     console.error(err.stack);
   }
-};
-
-// for koa-session-store
-MongooseStore.prototype.remove = function *(sid) {
-  yield this.destroy(sid);
 };
 
 /**
