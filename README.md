@@ -58,7 +58,7 @@ app.use(session({
 
 ## Other Relevant Modules
 
-* [koa-sess](https://github.com/dead-horse/koa-session)
+* [koa-generic-session](https://github.com/koajs/generic-session)
 * [koa-session-store](https://github.com/hiddentao/koa-session-store)  
 * [koa-session-mongo](https://github.com/hiddentao/koa-session-mongo)
 
