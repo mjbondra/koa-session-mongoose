@@ -2,7 +2,7 @@
 
 [![Build Status](https://api.travis-ci.org/mjbondra/koa-session-mongoose.png)](https://travis-ci.org/mjbondra/koa-session-mongoose) [![NPM version](https://badge.fury.io/js/koa-session-mongoose.png)](http://badge.fury.io/js/koa-session-mongoose)
 
-Mongoose storage layer for [koa-session-store](https://github.com/hiddentao/koa-session-store) or [koa-sess](https://github.com/dead-horse/koa-session).  
+Mongoose storage layer for [koa-session-store](https://github.com/hiddentao/koa-session-store) or [koa-generic-session](https://github.com/koajs/generic-session).  
 
 This can be used instead of [koa-session-mongo](https://github.com/hiddentao/koa-session-mongo) with [koa-session-store](https://github.com/hiddentao/koa-session-store), for a more direct integration with an existing [Mongoose](http://mongoosejs.com) connection.
 
