@@ -7,14 +7,14 @@ Mongoose storage layer for [koa-session-store](https://github.com/hiddentao/koa-
 This can be used instead of [koa-session-mongo](https://github.com/hiddentao/koa-session-mongo) with [koa-session-store](https://github.com/hiddentao/koa-session-store), for a more direct integration with an existing [Mongoose](http://mongoosejs.com) connection.
 
 ## Installation
-   
+
 ```
 npm install koa-session-mongoose
 ```
 
 ## Usage
 
-This store requires either [koa-session-store](https://github.com/hiddentao/koa-session-store) or [koa-sess](https://github.com/dead-horse/koa-session).
+This store requires either [koa-session-store](https://github.com/hiddentao/koa-session-store) or [koa-generic-session](https://github.com/koajs/generic-session).
 
 ```
 var session = require('koa-session-store'); // or you can use 'koa-sess'
