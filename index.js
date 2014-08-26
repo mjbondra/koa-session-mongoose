@@ -18,7 +18,7 @@ var MongooseStore = function (Session) {
  * Load data
  */
 
-// for koa-sess
+// for koa-generic-session
 MongooseStore.prototype.get = function *(sid, parse) {
   try {
     var data = yield this._findOne({ sid: sid });
@@ -72,8 +72,9 @@ MongooseStore.prototype.destroy = MongooseStore.prototype.remove = function *(si
  */
 exports.create = function (options) {
   options = options || {};
-  options.expires = options.expires || 60 * 60 * 24 * 14; // 2 weeks
   options.collection = options.collection || 'sessions';
+  options.connection = options.connection || mongoose;
+  options.expires = options.expires || 60 * 60 * 24 * 14; // 2 weeks
   options.model = options.model || 'SessionStore';
 
   var SessionSchema = new Schema({
@@ -85,7 +86,7 @@ exports.create = function (options) {
       expires: options.expires
     }
   });
-  var Session = mongoose.model(options.model, SessionSchema, options.collection);
+  var Session = options.connection.model(options.model, SessionSchema, options.collection);
 
   return new MongooseStore(Session);
 };

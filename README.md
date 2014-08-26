@@ -43,14 +43,17 @@ app.listen(3000);
 console.log('listening on port 3000');
 ```
 
-You can specify model name, collection name, and expiration time (in seconds):
+You can optionally specify model name, collection name, expiration time (in seconds), and Mongoose connection:
 
 ```
+var mongooseConnection = mongoose.createConnection('mongodb://some_host/some_db');
+
 app.use(session({
   store: mongooseStore.create({
-    model: 'KoaSession',
     collection: 'koaSessions',
-    expires: 60 * 60 * 24 * 7	// 1 week
+    connection: mongooseConnection,
+    expires: 60 * 60 * 24 * 14, // 2 weeks is the default
+    model: 'KoaSession'
   })
 }));
 
@@ -75,12 +78,14 @@ If you require a specific MongoDB URI, specify it as follows before `npm test`:
 
 ```
 export URI="mongodb://[username:password@]host[:port]/[database]"
+export URI2="mongodb://[username:password@]host[:port]/[database2]"
 ```
 
-Otherwise, the following URI will be used:
+Otherwise, the following URIs will be used:
 
 ```
 mongodb://127.0.0.1/koa_mongoose_store_test
+mongodb://127.0.0.1/koa_mongoose_store_test_alt
 ```
 
 ## License

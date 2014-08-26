@@ -1,8 +1,7 @@
 
-module.exports = function (sessionLibrary, mongooseModel) {
+module.exports = function (sessionLibrary, mongooseModel, connection) {
 
   var koa = require('koa')
-    , mongoose = require('mongoose')
     , mongooseStore = require('../')
     , route = require('koa-route')
     , request = require('supertest')
@@ -11,11 +10,13 @@ module.exports = function (sessionLibrary, mongooseModel) {
 
   var app = koa();
 
+  var mongooseOptions = { model: mongooseModel };
+  if (connection) mongooseOptions.connection = connection;
+  else connection = require('mongoose');
+
   app.keys = ['some secret key'];
   app.use(session({
-    store: mongooseStore.create({
-      model: mongooseModel
-    })
+    store: mongooseStore.create(mongooseOptions)
   }));
 
   var count = 0;
@@ -39,10 +40,10 @@ module.exports = function (sessionLibrary, mongooseModel) {
 
   var server = app.listen()
     , agent = request.agent(server)
-    , Session = mongoose.model(mongooseModel)
+    , Session = connection.model(mongooseModel)
     , sessionId;
 
-  describe('koa-session-mongoose for ' + sessionLibrary, function () {
+  describe('koa-session-mongoose for ' + sessionLibrary + ' using database ' + ( connection.name || connection.connections[0].name ), function () {
     before(function (done) {
       Session.remove({}, function (err) {
         done();
