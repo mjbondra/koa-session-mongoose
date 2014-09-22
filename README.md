@@ -1,6 +1,6 @@
 # koa-session-mongoose
 
-[![Build Status](https://api.travis-ci.org/mjbondra/koa-session-mongoose.png)](https://travis-ci.org/mjbondra/koa-session-mongoose) [![NPM version](https://badge.fury.io/js/koa-session-mongoose.png)](http://badge.fury.io/js/koa-session-mongoose)
+[![Build Status](https://img.shields.io/travis/mjbondra/koa-session-mongoose.svg?style=flat)](https://travis-ci.org/mjbondra/koa-session-mongoose) [![NPM version](https://img.shields.io/npm/v/koa-session-mongoose.svg?style=flat)](http://badge.fury.io/js/koa-session-mongoose)
 
 Mongoose storage layer for [koa-session-store](https://github.com/hiddentao/koa-session-store) or [koa-generic-session](https://github.com/koajs/generic-session).  
 
