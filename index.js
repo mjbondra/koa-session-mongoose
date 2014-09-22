@@ -78,7 +78,10 @@ exports.create = function (options) {
   options.model = options.model || 'SessionStore';
 
   var SessionSchema = new Schema({
-    sid: String,
+    sid: {
+      type: String,
+      index: true
+    },
     blob: String,
     updatedAt: {
       type: Date,
