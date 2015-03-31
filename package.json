@@ -26,7 +26,7 @@
   "homepage": "https://github.com/mjbondra/koa-session-mongoose",
   "dependencies": {
     "bluebird": "^2.2.2",
-    "mongoose": "^3.8.13"
+    "mongoose": "^4.0.1"
   },
   "devDependencies": {
     "koa": "^0.10.0",
