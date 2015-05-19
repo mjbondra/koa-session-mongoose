@@ -2,16 +2,13 @@
  * Module dependencies
  */
 var mongoose = require('mongoose')
-  , Promise = require('bluebird')
   , Schema = mongoose.Schema;
 
 /**
  * @constructor
  */
 var MongooseStore = function (Session) {
-  this._findOne = Promise.promisify(Session.findOne, Session);
-  this._findOneAndUpdate = Promise.promisify(Session.findOneAndUpdate, Session);
-  this._remove = Promise.promisify(Session.remove, Session);
+  this.Session = Session;
 };
 
 /**
@@ -21,7 +18,7 @@ var MongooseStore = function (Session) {
 // for koa-generic-session
 MongooseStore.prototype.get = function *(sid, parse) {
   try {
-    var data = yield this._findOne({ sid: sid });
+    var data = yield this.Session.findOne({ sid: sid }).exec();
     if (data && data.sid) {
       if (parse === false) return data.blob;
       return JSON.parse(data.blob);
@@ -50,7 +47,7 @@ MongooseStore.prototype.set = MongooseStore.prototype.save = function *(sid, blo
       blob: blob,
       updatedAt: new Date()
     };
-    yield this._findOneAndUpdate({ sid: sid }, data, { upsert: true, safe: true });
+    yield this.Session.findOneAndUpdate({ sid: sid }, data, { upsert: true, safe: true }).exec();
   } catch (err) {
     console.error(err.stack);
   }
@@ -61,7 +58,7 @@ MongooseStore.prototype.set = MongooseStore.prototype.save = function *(sid, blo
  */
 MongooseStore.prototype.destroy = MongooseStore.prototype.remove = function *(sid) {
   try {
-    yield this._remove({ sid: sid });
+    yield this.Session.remove({ sid: sid });
   } catch (err) {
     console.error(err.stack);
   }
