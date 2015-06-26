@@ -1,8 +1,7 @@
 /**
  * Module dependencies
  */
-var mongoose = require('mongoose')
-  , Schema = mongoose.Schema;
+var mongoose = require('mongoose');
 
 /**
  * @constructor
@@ -74,6 +73,7 @@ exports.create = function (options) {
   options.expires = options.expires || 60 * 60 * 24 * 14; // 2 weeks
   options.model = options.model || 'SessionStore';
 
+  var Schema = options.connection.Schema || mongoose.Schema;
   var SessionSchema = new Schema({
     sid: {
       type: String,
