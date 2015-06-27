@@ -1,6 +1,6 @@
 {
   "name": "koa-session-mongoose",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Mongoose storage layer for Koa session middleware",
   "main": "index.js",
   "scripts": {
