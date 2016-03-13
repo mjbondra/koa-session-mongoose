@@ -14,10 +14,10 @@ npm install koa-session-mongoose
 
 ## Usage
 
-This store requires either [koa-session-store](https://github.com/hiddentao/koa-session-store) or [koa-generic-session](https://github.com/koajs/generic-session).
+This store requires either [koa-generic-session](https://github.com/koajs/generic-session) or [koa-session-store](https://github.com/hiddentao/koa-session-store).
 
 ```
-var session = require('koa-session-store'); // or you can use 'koa-generic-session'
+var session = require('koa-generic-session'); // or you can use 'koa-session-store'
 var mongoose = require('mongoose');
 var MongooseStore = require('koa-session-mongoose');
 var koa = require('koa');
