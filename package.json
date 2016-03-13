@@ -1,6 +1,6 @@
 {
   "name": "koa-session-mongoose",
-  "version": "0.5.2",
+  "version": "1.0.0",
   "description": "Mongoose storage layer for Koa session middleware",
   "main": "index.js",
   "scripts": {
@@ -28,13 +28,13 @@
     "mongoose": "^4.0.1"
   },
   "devDependencies": {
-    "koa": "^0.10.0",
-    "koa-generic-session": "^1.2.1",
-    "koa-route": "^2.1.0",
+    "koa": "^1.2.0",
+    "koa-generic-session": "^1.10.1",
+    "koa-route": "^2.4.2",
     "koa-session-store": "^1.1.1",
-    "mocha": "^1.21.4",
-    "should": "^4.0.4",
-    "supertest": "^0.13.0"
+    "mocha": "^2.4.5",
+    "should": "^8.2.2",
+    "supertest": "^1.2.0"
   },
   "engines": {
     "node": ">= 0.11.9"
