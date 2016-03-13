@@ -19,7 +19,7 @@ This store requires either [koa-session-store](https://github.com/hiddentao/koa-
 ```
 var session = require('koa-session-store'); // or you can use 'koa-generic-session'
 var mongoose = require('mongoose');
-var mongooseStore = require('koa-session-mongoose');
+var MongooseStore = require('koa-session-mongoose');
 var koa = require('koa');
 
 // mongoose connection must exist before creating a store with koa-session-mongoose
@@ -30,7 +30,7 @@ var app = koa();
 app.keys = ['some secret key'];  // needed for cookie-signing
 
 app.use(session({
-  store: mongooseStore.create()
+  store: new MongooseStore()
 }));
 
 app.use(function *() {
@@ -49,7 +49,7 @@ You can optionally specify model name, collection name, expiration time (in seco
 var mongooseConnection = mongoose.createConnection('mongodb://some_host/some_db');
 
 app.use(session({
-  store: mongooseStore.create({
+  store: new MongooseStore({
     collection: 'koaSessions',
     connection: mongooseConnection,
     expires: 60 * 60 * 24 * 14, // 2 weeks is the default
@@ -92,7 +92,7 @@ mongodb://127.0.0.1/koa_mongoose_store_test_alt
 
 The MIT License (MIT)
 
-Copyright (c) 2013-2015 Michael J. Bondra < [mjbondra@gmail.com](mailto:mjbondra@gmail.com) >
+Copyright (c) 2013-2016 Michael J. Bondra < [mjbondra@gmail.com](mailto:mjbondra@gmail.com) >
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
