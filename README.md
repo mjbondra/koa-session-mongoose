@@ -16,7 +16,7 @@ npm install koa-session-mongoose
 
 This store requires either [koa-generic-session](https://github.com/koajs/generic-session) or [koa-session-store](https://github.com/hiddentao/koa-session-store).
 
-```
+```javascript
 var session = require('koa-generic-session'); // or you can use 'koa-session-store'
 var mongoose = require('mongoose');
 var MongooseStore = require('koa-session-mongoose');
@@ -45,7 +45,7 @@ console.log('listening on port 3000');
 
 You can optionally specify model name, collection name, expiration time (in seconds), and Mongoose connection:
 
-```
+```javascript
 var mongooseConnection = mongoose.createConnection('mongodb://some_host/some_db');
 
 app.use(session({
@@ -59,7 +59,7 @@ app.use(session({
 
 ```
 
-## Other Relevant Modules
+## Related Modules
 
 * [koa-generic-session](https://github.com/koajs/generic-session)
 * [koa-session-store](https://github.com/hiddentao/koa-session-store)  
@@ -76,7 +76,7 @@ npm test
 
 If you require a specific MongoDB URI, specify it as follows before `npm test`:
 
-```
+```shell
 export URI="mongodb://[username:password@]host[:port]/[database]"
 export URI2="mongodb://[username:password@]host[:port]/[database2]"
 ```
