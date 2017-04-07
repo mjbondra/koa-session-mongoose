@@ -29,13 +29,13 @@ class MongooseStore {
   }
 
 
-  *destroy (sid) {
-    yield this.Session.remove({ sid: sid });
+  async destroy (sid) {
+    await this.Session.remove({ sid: sid });
   }
 
 
-  *get (sid, parse) {
-    const data = yield this.Session.findOne({ sid: sid });
+  async get (sid, parse) {
+    const data = await this.Session.findOne({ sid: sid });
 
     if (!data || !data.sid) return null;
     if (parse === false) return data.blob;
@@ -44,29 +44,29 @@ class MongooseStore {
   }
 
 
-  *load (sid) {
-    return yield this.get(sid, false);
+  async load (sid) {
+    return await this.get(sid, false);
   }
 
 
-  *remove (sid) {
-    return yield this.destroy(sid);
+  async remove (sid) {
+    return await this.destroy(sid);
   }
 
 
-  *save (sid, blob) {
-    return yield this.set(sid, blob);
+  async save (sid, blob) {
+    return await this.set(sid, blob);
   }
 
 
-  *set (sid, blob) {
+  async set (sid, blob) {
     const data = {
       sid: sid,
       blob: typeof blob === 'object' ? JSON.stringify(blob) : blob,
       updatedAt: new Date()
     };
 
-    yield this.Session.findOneAndUpdate({ sid: sid }, data, { upsert: true, safe: true });
+    await this.Session.findOneAndUpdate({ sid: sid }, data, { upsert: true, safe: true });
   }
 
 
