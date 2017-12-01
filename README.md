@@ -22,7 +22,7 @@ npm i --save koa-session-mongoose
 
 This store requires [node@>=8.0.0](https://nodejs.org), [koa@>=2.0.0](http://koajs.com) and [koa-session@>=5.0.0](https://github.com/koajs/session).
 
-If you are using older dependencies, consider using [koa-session-mongoose@^1.0.0](https://gitlab.com/wondermonger/koa-session-mongoose/tree/v1.0.0).
+If you are using older dependencies, consider using [koa-session-mongoose@\^1.0.0](https://gitlab.com/wondermonger/koa-session-mongoose/tree/v1.0.0).
 
 ### Code Examples
 
@@ -65,7 +65,7 @@ async function init (uri) => {
       expires: 86400, // 1 day is the default
       name: 'AppSession'
     })
-  });
+  }, app));
 }
 
 ```
