@@ -28,6 +28,7 @@ If you are using older dependencies, consider using [koa-session-mongoose@\^1.0.
 
 ```javascript
 const Koa = require('koa');
+const mongoose = require('mongoose');
 const MongooseStore = require('koa-session-mongoose');
 const session = require('koa-session');
 
