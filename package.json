@@ -1,15 +1,10 @@
 {
   "name": "koa-session-mongoose",
-  "version": "1.0.0",
+  "version": "2.0.0-0",
   "description": "Mongoose storage layer for Koa session middleware",
-  "main": "index.js",
-  "scripts": {
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --harmony --reporter spec test/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/mjbondra/koa-session-mongoose.git"
-  },
+  "main": "lib/index.js",
+  "author": "Michael J. Bondra <mjbondra@gmail.com> (https://mjbondra.com)",
+  "license": "MIT",
   "keywords": [
     "koa",
     "session",
@@ -18,25 +13,40 @@
     "mongoose",
     "store"
   ],
-  "author": "Michael J. Bondra <mjbondra@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mjbondra/koa-session-mongoose/issues"
+  "repository": "gitlab:wondermonger/koa-session-mongoose",
+  "scripts": {
+    "lint": "eslint \"**/*.js\"",
+    "test": "yarn test:unit && yarn test:integration",
+    "test:integration": "mocha \"test/integration/**/*.js\"",
+    "test:unit": "mocha \"test/unit/**/*.js\""
   },
-  "homepage": "https://github.com/mjbondra/koa-session-mongoose",
   "dependencies": {
-    "mongoose": "^4.0.1"
+    "mongoose": "^4.0.0"
   },
   "devDependencies": {
-    "koa": "^1.2.0",
-    "koa-generic-session": "^1.10.1",
-    "koa-route": "^2.4.2",
-    "koa-session-store": "^1.1.1",
-    "mocha": "^2.4.5",
-    "should": "^8.2.2",
-    "supertest": "^1.2.0"
+    "chai": "^4.1.2",
+    "dirty-chai": "^2.0.1",
+    "eslint": "^4.12.0",
+    "eslint-config-wondermonger": "^2.0.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "koa": "^2.4.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.3.0",
+    "koa-session": "^5.5.1",
+    "mocha": "^4.0.0",
+    "proxyquire": "^1.8.0",
+    "sinon": "^4.1.2",
+    "sinon-chai": "^2.14.0",
+    "supertest": "^3.0.0"
+  },
+  "peerDependencies": {
+    "koa": ">=2.0.0",
+    "koa-session": ">=5.0.0"
   },
   "engines": {
-    "node": ">= 0.11.9"
+    "node": ">=8"
   }
 }

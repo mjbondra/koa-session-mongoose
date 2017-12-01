@@ -1,0 +1,46 @@
+image: wondermonger/ci-tools:v2
+
+stages:
+  - install
+  - lint
+  - test
+  - deploy
+
+install:
+  artifacts:
+    paths:
+      - node_modules/
+  script: ci-node-install
+  stage: install
+
+lint:
+  script: ci-node-lint
+  stage: lint
+
+unit:
+  script: ci-node-test unit
+  stage: test
+
+integration:
+  services:
+    - mongo
+  script: ci-node-test integration
+  stage: test
+  variables:
+    MONGODB_URI: mongodb://mongo/koa-session-mongoose
+
+release:
+  only:
+    - master
+  script:
+    - ci-git-config
+    - ci-git-release
+  stage: deploy
+
+publish:
+  only:
+    - tags
+  script:
+    - ci-node-config
+    - ci-node-release
+  stage: deploy
