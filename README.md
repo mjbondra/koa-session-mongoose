@@ -83,7 +83,7 @@ A mirror of the project will persist at [https://github.com/mjbondra/koa-session
 
 ### Installation
 
-```Shell
+```shell
 yarn
 ```
 
