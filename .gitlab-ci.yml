@@ -22,8 +22,12 @@ unit:
   stage: test
 
 integration:
+  services:
+    - mongo
   script: ci-node-test integration
   stage: test
+  variables:
+    MONGODB_URI: mongodb://mongo/koa-session-mongoose
 
 release:
   only:
