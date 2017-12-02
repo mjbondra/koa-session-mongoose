@@ -402,8 +402,8 @@ eslint-config-standard@^10.2.0:
   resolved "https://registry.yarnpkg.com/eslint-config-standard/-/eslint-config-standard-10.2.1.tgz#c061e4d066f379dc17cd562c64e819b4dd454591"
 
 eslint-config-wondermonger@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-wondermonger/-/eslint-config-wondermonger-2.0.0.tgz#f9746a994241117431711140b51daf6228e38703"
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-wondermonger/-/eslint-config-wondermonger-2.0.1.tgz#a1d8f81fc789f970c698ec44cb2cb3d10bda7a8a"
   dependencies:
     eslint-config-standard "^10.2.0"
 
