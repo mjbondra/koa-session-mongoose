@@ -13,6 +13,11 @@ install:
   script: ci-node-install
   stage: install
 
+outdated:
+  allow_failure: true
+  script: ci-node-outdated
+  stage: install
+
 lint:
   script: ci-node-lint
   stage: lint
