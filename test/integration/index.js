@@ -33,7 +33,7 @@ describe('integration', () => {
     server.close();
   });
 
-  describe('create', () => {
+  describe('happy path', () => {
     it('should create a session', async () => {
       const response = await request
         .post('/sessions')
@@ -47,9 +47,7 @@ describe('integration', () => {
       expect(session).to.exist();
       expect(session.data.foo).to.equal('bar');
     });
-  });
 
-  describe('update', () => {
     it('should update a session', async () => {
       await request
         .put(`/sessions/${sessionId}`)
@@ -61,9 +59,50 @@ describe('integration', () => {
       expect(session).to.exist();
       expect(session.data.foo).to.equal('baz');
     });
+
+    it('should remove a session', async () => {
+      await request
+        .delete(`/sessions/${sessionId}`)
+        .expect(204);
+
+      const session = await Session.findById(sessionId);
+
+      expect(session).to.not.exist();
+    });
   });
 
-  describe('destroy', () => {
+  describe('missing session', () => {
+    it('should create a session', async () => {
+      const response = await request
+        .post('/sessions')
+        .type('form')
+        .send({ foo: 'bar' })
+        .expect(201);
+
+      [ , sessionId ] = response.headers['set-cookie'][0].match(/koa:sess=(.*?);/);
+      const session = await Session.findById(sessionId);
+
+      expect(session).to.exist();
+      expect(session.data.foo).to.equal('bar');
+    });
+
+    it('should create a new session when previous session is not found', async () => {
+      const oldSessionId = sessionId;
+      await Session.remove({ _id: oldSessionId });
+
+      const response = await request
+        .put(`/sessions/${sessionId}`)
+        .send({ foo: 'baz' })
+        .expect(200);
+
+      [ , sessionId ] = response.headers['set-cookie'][0].match(/koa:sess=(.*?);/);
+      const session = await Session.findById(sessionId);
+
+      expect(sessionId).to.not.equal(oldSessionId);
+      expect(session).to.exist();
+      expect(session.data.foo).to.equal('baz');
+    });
+
     it('should remove a session', async () => {
       await request
         .delete(`/sessions/${sessionId}`)
