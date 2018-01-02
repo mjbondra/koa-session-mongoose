@@ -20,7 +20,7 @@ npm i --save koa-session-mongoose
 
 ### Prerequisites
 
-This store requires [node@>=8.0.0](https://nodejs.org), [koa@>=2.0.0](http://koajs.com) and [koa-session@>=5.0.0](https://github.com/koajs/session).
+This store requires [node@>=8.3.0](https://nodejs.org), [koa@>=2.0.0](http://koajs.com) and [koa-session@>=5.0.0](https://github.com/koajs/session).
 
 If you are using older dependencies, consider using [koa-session-mongoose@\^1.0.0](https://gitlab.com/wondermonger/koa-session-mongoose/tree/v1.0.0).
 
