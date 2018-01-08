@@ -1,6 +1,6 @@
 # koa-session-mongoose
 
-[![pipeline status](https://gitlab.com/wondermonger/koa-session-mongoose/badges/v2.0.4/pipeline.svg)](https://gitlab.com/wondermonger/koa-session-mongoose/pipelines/15889564) [![coverage report](https://gitlab.com/wondermonger/koa-session-mongoose/badges/v2.0.4/coverage.svg)](https://wondermonger.gitlab.io/-/koa-session-mongoose/-/jobs/47030668/artifacts/coverage/index.html)
+[![pipeline status](https://gitlab.com/wondermonger/koa-session-mongoose/badges/v2.0.5/pipeline.svg)](https://gitlab.com/wondermonger/koa-session-mongoose/pipelines/15892902) [![coverage report](https://gitlab.com/wondermonger/koa-session-mongoose/badges/v2.0.5/coverage.svg)](https://wondermonger.gitlab.io/-/koa-session-mongoose/-/jobs/47039482/artifacts/coverage/index.html)
 
 Mongoose storage layer for [koa-session](https://github.com/koajs/session).
 
