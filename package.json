@@ -1,6 +1,6 @@
 {
   "name": "koa-session-mongoose",
-  "version": "2.0.4-0",
+  "version": "2.0.4",
   "description": "Mongoose storage layer for Koa session middleware",
   "main": "lib/index.js",
   "author": "Michael J. Bondra <mjbondra@gmail.com> (https://mjbondra.com)",
