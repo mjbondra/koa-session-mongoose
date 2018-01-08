@@ -1,6 +1,6 @@
 # koa-session-mongoose
 
-[![NPM version](https://img.shields.io/npm/v/koa-session-mongoose.svg?style=flat)](http://badge.fury.io/js/koa-session-mongoose)
+[![pipeline status](https://gitlab.com/wondermonger/koa-session-mongoose/badges/0/pipeline.svg)](https://gitlab.com/wondermonger/koa-session-mongoose/pipelines/0) [![coverage report](https://gitlab.com/wondermonger/koa-session-mongoose/badges/0/coverage.svg)](https://wondermonger.gitlab.io/-/koa-session-mongoose/-/jobs/0/artifacts/coverage/index.html)
 
 Mongoose storage layer for [koa-session](https://github.com/koajs/session).
 

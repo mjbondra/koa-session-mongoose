@@ -16,7 +16,8 @@
   "repository": "gitlab:wondermonger/koa-session-mongoose",
   "scripts": {
     "lint": "eslint \"**/*.js\"",
-    "test": "yarn test:unit && yarn test:integration",
+    "test": "yarn test:unit && yarn test:integration && yarn test:coverage",
+    "test:coverage": "nyc -r text -r html mocha -R progress \"test/unit/**/*.js\"",
     "test:integration": "mocha \"test/integration/**/*.js\"",
     "test:unit": "mocha \"test/unit/**/*.js\""
   },
@@ -37,6 +38,7 @@
     "koa-router": "^7.3.0",
     "koa-session": "^5.5.1",
     "mocha": "^4.0.0",
+    "nyc": "^11.4.1",
     "proxyquire": "^1.8.0",
     "sinon": "^4.1.2",
     "sinon-chai": "^2.14.0",

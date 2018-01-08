@@ -34,12 +34,24 @@ integration:
   variables:
     MONGODB_URI: mongodb://mongo/koa-session-mongoose
 
+coverage:
+  artifacts:
+    paths:
+      - coverage/
+      - README.md
+  coverage: /All files\s*\|\s*([\d\.]+)/
+  script:
+    - ci-node-test coverage
+    - ci-git-readme-badge -b coverage
+  stage: test
+
 release:
   only:
     - master
   script:
     - ci-git-config
-    - ci-git-release
+    - ci-git-readme-badge -b pipeline
+    - ci-git-release -a README.md
   stage: deploy
 
 publish:
