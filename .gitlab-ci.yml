@@ -2,7 +2,6 @@ include:
   - https://gitlab.com/wondermonger/ci-tools/raw/v7.0.0/tpl/node/base.yml
   - https://gitlab.com/wondermonger/ci-tools/raw/v7.0.0/tpl/node/post-install/lint.yml
   - https://gitlab.com/wondermonger/ci-tools/raw/v7.0.0/tpl/node/test/coverage.yml
-  - https://gitlab.com/wondermonger/ci-tools/raw/v7.0.0/tpl/node/build/public.yml
   - https://gitlab.com/wondermonger/ci-tools/raw/v7.0.0/tpl/node/post-build/pages.yml
 
 unit:
