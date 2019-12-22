@@ -13,23 +13,24 @@ chai.use(dirtyChai);
 
 describe("integration", () => {
   let app;
-  let dbConnection;
+  let mongoose;
   let request;
   let server;
   let Session;
   let sessionId;
 
   before(async () => {
-    dbConnection = await mongooseConnection();
+    mongoose = await mongooseConnection();
     app = koaApp();
     server = app.listen();
     request = supertest.agent(server);
-    Session = dbConnection.model("Session");
+    Session = mongoose.model("Session");
   });
 
   after(async () => {
-    await dbConnection.db.dropDatabase();
-    dbConnection.close();
+    const [connection] = mongoose.connections;
+    await connection.db.dropDatabase();
+    connection.close();
     server.close();
   });
 
@@ -90,7 +91,7 @@ describe("integration", () => {
 
     it("should create a new session when previous session is not found", async () => {
       const oldSessionId = sessionId;
-      await Session.remove({ _id: oldSessionId });
+      await Session.deleteOne({ _id: oldSessionId });
 
       const response = await request
         .put(`/sessions/${sessionId}`)
