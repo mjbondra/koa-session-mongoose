@@ -11,6 +11,8 @@ unit:
   stage: test
 
 integration:
+  except:
+    - tags
   services:
     - mongo
   script: npm run test:integration
