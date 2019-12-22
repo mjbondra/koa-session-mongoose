@@ -19,7 +19,9 @@
     "test": "npm run test:unit && npm run test:integration",
     "test:coverage": "nyc -a -x \"{public,test}/**/*.js\" --report-dir ./public/coverage -r text -r html mocha -R progress \"test/unit/**/*.js\"",
     "test:integration": "mocha \"test/integration/**/*.js\"",
-    "test:unit": "mocha \"test/unit/**/*.js\""
+    "test:integration:debug": "mocha --inspect-brk \"test/integration/**/*.js\"",
+    "test:unit": "mocha \"test/unit/**/*.js\"",
+    "test:unit:debug": "mocha --inspect-brk \"test/unit/**/*.js\""
   },
   "devDependencies": {
     "babel-eslint": "^10.0.3",
