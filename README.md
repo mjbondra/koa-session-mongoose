@@ -1,7 +1,5 @@
 # koa-session-mongoose
 
-[![pipeline status](https://gitlab.com/wondermonger/koa-session-mongoose/badges/v2.0.5/pipeline.svg)](https://gitlab.com/wondermonger/koa-session-mongoose/pipelines/15892902) [![coverage report](https://gitlab.com/wondermonger/koa-session-mongoose/badges/v2.0.5/coverage.svg)](https://wondermonger.gitlab.io/-/koa-session-mongoose/-/jobs/47039482/artifacts/coverage/index.html)
-
 Mongoose storage layer for [koa-session](https://github.com/koajs/session).
 
 ## Installation
@@ -20,9 +18,11 @@ yarn add koa-session-mongoose
 
 ### Prerequisites
 
-This store requires [node@>=8.3.0](https://nodejs.org), [koa@>=2.0.0](http://koajs.com) and [koa-session@>=5.0.0](https://github.com/koajs/session).
+This store requires [node@>=8.3.0](https://nodejs.org), [koa@>=2.0.0](http://koajs.com), and [koa-session@>=5.0.0](https://github.com/koajs/session).
 
-If you are using older dependencies, consider using [koa-session-mongoose@\^1.0.0](https://gitlab.com/wondermonger/koa-session-mongoose/tree/v1.0.0).
+It has a peer-dependency of [mongoose@>=5.0.0](https://mongoosejs.com/).
+
+If you are using older dependencies, consider using [koa-session-mongoose@^1.0.0](https://gitlab.com/wondermonger/koa-session-mongoose/tree/v1.0.0) or [koa-session-mongoose@^2.0.0](https://gitlab.com/wondermonger/koa-session-mongoose/tree/v2.0.0).
 
 ### Code Examples
 
@@ -56,7 +56,12 @@ You can optionally specify collection name (`collection`), model name (`name`), 
 
 ```javascript
 async function init (uri) => {
-  const connection = await mongoose.connect(uri, { useMongoClient: true });
+  const connection = await mongoose.connect(uri, {
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
 
   app.use(session({
     store: new MongooseStore({
