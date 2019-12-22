@@ -7,13 +7,13 @@ Mongoose storage layer for [koa-session](https://github.com/koajs/session).
 ## Installation
 
 ```shell
-yarn add koa-session-mongoose
+npm i --save koa-session-mongoose
 ```
 
 **OR**
 
 ```shell
-npm i --save koa-session-mongoose
+yarn add koa-session-mongoose
 ```
 
 ## Usage
@@ -27,18 +27,18 @@ If you are using older dependencies, consider using [koa-session-mongoose@\^1.0.
 ### Code Examples
 
 ```javascript
-const Koa = require('koa');
-const mongoose = require('mongoose');
-const MongooseStore = require('koa-session-mongoose');
-const session = require('koa-session');
+const Koa = require("koa");
+const mongoose = require("mongoose");
+const MongooseStore = require("koa-session-mongoose");
+const session = require("koa-session");
 
 // mongoose connection must exist before creating a store with koa-session-mongoose
-mongoose.connect('mongodb://some_host/some_db');
+mongoose.connect("mongodb://some_host/some_db");
 
 const app = new Koa();
 
 // needed for cookie-signing
-app.keys = ['some secret key'];
+app.keys = ["some secret key"];
 
 app.use(session({ store: new MongooseStore() }, app));
 
@@ -50,7 +50,6 @@ app.use(async ctx => {
 });
 
 app.listen(3000);
-
 ```
 
 You can optionally specify collection name (`collection`), model name (`name`), expiration time in seconds (`expires`), and Mongoose connection (`connection`):
@@ -73,7 +72,7 @@ async function init (uri) => {
 
 ## Related Modules
 
-* [koa-session](https://github.com/koajs/session)
+- [koa-session](https://github.com/koajs/session)
 
 ## Development
 
@@ -116,7 +115,7 @@ MONGODB_URI="mongodb://[username:password@]host[:port]/[database]"
 
 The MIT License (MIT)
 
-Copyright (c) 2013-2018 Michael J. Bondra <mjbondra@gmail.com>
+Copyright (c) 2013-2019 Michael J. Bondra <mjbondra@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
