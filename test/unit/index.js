@@ -21,9 +21,9 @@ describe("MongooseStore", () => {
   beforeEach(() => {
     session = { data: { foo: "bar" } };
     model = {
+      deleteOne: sinon.spy(async () => session),
       findById: sinon.spy(async () => session),
-      findByIdAndUpdate: sinon.spy(async () => session),
-      remove: sinon.spy(async () => session)
+      findByIdAndUpdate: sinon.spy(async () => session)
     };
     mongoose = {
       model: sinon.spy(() => model),
@@ -117,7 +117,7 @@ describe("MongooseStore", () => {
     describe("destroy", () => {
       it("should call model.remove", async () => {
         await store.destroy(id);
-        expect(model.remove).to.have.been.calledWith({ _id: id });
+        expect(model.deleteOne).to.have.been.calledWith({ _id: id });
       });
     });
 
