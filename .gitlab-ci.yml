@@ -1,63 +1,20 @@
-image: wondermonger/ci-tools:v2
-
-stages:
-  - install
-  - lint
-  - test
-  - deploy
-
-install:
-  artifacts:
-    paths:
-      - node_modules/
-  script: ci-node-install
-  stage: install
-
-outdated:
-  allow_failure: true
-  script: ci-node-outdated
-  stage: install
-
-lint:
-  script: ci-node-lint
-  stage: lint
+include:
+  - https://gitlab.com/wondermonger/ci-tools/raw/v7.0.0/tpl/node/base.yml
+  - https://gitlab.com/wondermonger/ci-tools/raw/v7.0.0/tpl/node/post-install/lint.yml
+  - https://gitlab.com/wondermonger/ci-tools/raw/v7.0.0/tpl/node/test/coverage.yml
+  - https://gitlab.com/wondermonger/ci-tools/raw/v7.0.0/tpl/node/build/public.yml
+  - https://gitlab.com/wondermonger/ci-tools/raw/v7.0.0/tpl/node/post-build/pages.yml
 
 unit:
-  script: ci-node-test unit
+  except:
+    - tags
+  script: npm run test:unit
   stage: test
 
 integration:
   services:
     - mongo
-  script: ci-node-test integration
+  script: npm run test:integration
   stage: test
   variables:
     MONGODB_URI: mongodb://mongo/koa-session-mongoose
-
-coverage:
-  artifacts:
-    paths:
-      - coverage/
-      - README.md
-  coverage: /All files\s*\|\s*([\d\.]+)/
-  script:
-    - ci-node-test coverage
-    - ci-git-readme-badge -b coverage
-  stage: test
-
-release:
-  only:
-    - master
-  script:
-    - ci-git-config
-    - ci-git-readme-badge -b pipeline
-    - ci-git-release -a README.md
-  stage: deploy
-
-publish:
-  only:
-    - tags
-  script:
-    - ci-node-config
-    - ci-node-release
-  stage: deploy
