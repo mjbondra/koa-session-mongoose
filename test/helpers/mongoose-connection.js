@@ -7,4 +7,4 @@ const uri =
 
 mongoose.Promise = Promise;
 
-module.exports = async () => mongoose.connect(uri, { useMongoClient: true });
+module.exports = async () => mongoose.connect(uri, { useNewUrlParser: true });
