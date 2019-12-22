@@ -88,29 +88,29 @@ A mirror of the project will persist at [https://github.com/mjbondra/koa-session
 ### Installation
 
 ```shell
-yarn
+npm i
 ```
 
 ### Linting
 
 ```shell
-yarn lint
+npm run lint
 ```
 
 ### Testing
 
 ```shell
 # all tests
-yarn test
+npm run test
 
 # integration tests
-yarn test:integration
+npm run test:integration
 
 # unit tests
-yarn test:unit
+npm run test:unit
 ```
 
-If you require a MongoDB URI other than the default (`mongodb://127.0.0.1/koa-session-mongoose`), specify it as follows before executing `yarn test` or `yarn test:integration`:
+If you require a MongoDB URI other than the default (`mongodb://127.0.0.1/koa-session-mongoose`), specify it as follows before executing `npm run test` or `npm run test:integration`:
 
 ```shell
 MONGODB_URI="mongodb://[username:password@]host[:port]/[database]"
