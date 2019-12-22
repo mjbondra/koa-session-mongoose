@@ -1,44 +1,44 @@
 # koa-session-mongoose
 
-[![pipeline status](https://gitlab.com/wondermonger/koa-session-mongoose/badges/v2.0.5/pipeline.svg)](https://gitlab.com/wondermonger/koa-session-mongoose/pipelines/15892902) [![coverage report](https://gitlab.com/wondermonger/koa-session-mongoose/badges/v2.0.5/coverage.svg)](https://wondermonger.gitlab.io/-/koa-session-mongoose/-/jobs/47039482/artifacts/coverage/index.html)
-
 Mongoose storage layer for [koa-session](https://github.com/koajs/session).
 
 ## Installation
 
 ```shell
-yarn add koa-session-mongoose
+npm i --save koa-session-mongoose
 ```
 
 **OR**
 
 ```shell
-npm i --save koa-session-mongoose
+yarn add koa-session-mongoose
 ```
 
 ## Usage
 
 ### Prerequisites
 
-This store requires [node@>=8.3.0](https://nodejs.org), [koa@>=2.0.0](http://koajs.com) and [koa-session@>=5.0.0](https://github.com/koajs/session).
+This store requires [node@>=8.3.0](https://nodejs.org), [koa@>=2.0.0](http://koajs.com), and [koa-session@>=5.0.0](https://github.com/koajs/session).
 
-If you are using older dependencies, consider using [koa-session-mongoose@\^1.0.0](https://gitlab.com/wondermonger/koa-session-mongoose/tree/v1.0.0).
+It has a peer-dependency of [mongoose@>=5.0.0](https://mongoosejs.com/).
+
+If you are using older dependencies, consider using [koa-session-mongoose@^1.0.0](https://gitlab.com/wondermonger/koa-session-mongoose/tree/v1.0.0) or [koa-session-mongoose@^2.0.0](https://gitlab.com/wondermonger/koa-session-mongoose/tree/v2.0.0).
 
 ### Code Examples
 
 ```javascript
-const Koa = require('koa');
-const mongoose = require('mongoose');
-const MongooseStore = require('koa-session-mongoose');
-const session = require('koa-session');
+const Koa = require("koa");
+const mongoose = require("mongoose");
+const MongooseStore = require("koa-session-mongoose");
+const session = require("koa-session");
 
 // mongoose connection must exist before creating a store with koa-session-mongoose
-mongoose.connect('mongodb://some_host/some_db');
+mongoose.connect("mongodb://some_host/some_db");
 
 const app = new Koa();
 
 // needed for cookie-signing
-app.keys = ['some secret key'];
+app.keys = ["some secret key"];
 
 app.use(session({ store: new MongooseStore() }, app));
 
@@ -50,14 +50,18 @@ app.use(async ctx => {
 });
 
 app.listen(3000);
-
 ```
 
 You can optionally specify collection name (`collection`), model name (`name`), expiration time in seconds (`expires`), and Mongoose connection (`connection`):
 
 ```javascript
 async function init (uri) => {
-  const connection = await mongoose.connect(uri, { useMongoClient: true });
+  const connection = await mongoose.connect(uri, {
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
 
   app.use(session({
     store: new MongooseStore({
@@ -73,7 +77,7 @@ async function init (uri) => {
 
 ## Related Modules
 
-* [koa-session](https://github.com/koajs/session)
+- [koa-session](https://github.com/koajs/session)
 
 ## Development
 
@@ -84,29 +88,29 @@ A mirror of the project will persist at [https://github.com/mjbondra/koa-session
 ### Installation
 
 ```shell
-yarn
+npm i
 ```
 
 ### Linting
 
 ```shell
-yarn lint
+npm run lint
 ```
 
 ### Testing
 
 ```shell
 # all tests
-yarn test
+npm run test
 
 # integration tests
-yarn test:integration
+npm run test:integration
 
 # unit tests
-yarn test:unit
+npm run test:unit
 ```
 
-If you require a MongoDB URI other than the default (`mongodb://127.0.0.1/koa-session-mongoose`), specify it as follows before executing `yarn test` or `yarn test:integration`:
+If you require a MongoDB URI other than the default (`mongodb://127.0.0.1/koa-session-mongoose`), specify it as follows before executing `npm run test` or `npm run test:integration`:
 
 ```shell
 MONGODB_URI="mongodb://[username:password@]host[:port]/[database]"
@@ -116,7 +120,7 @@ MONGODB_URI="mongodb://[username:password@]host[:port]/[database]"
 
 The MIT License (MIT)
 
-Copyright (c) 2013-2018 Michael J. Bondra <mjbondra@gmail.com>
+Copyright (c) 2013-2019 Michael J. Bondra <mjbondra@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
