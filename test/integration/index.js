@@ -1,17 +1,17 @@
-'use strict';
+"use strict";
 
-const chai = require('chai');
-const dirtyChai = require('dirty-chai');
-const supertest = require('supertest');
+const chai = require("chai");
+const dirtyChai = require("dirty-chai");
+const supertest = require("supertest");
 
-const koaApp = require('../helpers/koa-app');
-const mongooseConnection = require('../helpers/mongoose-connection');
+const koaApp = require("../helpers/koa-app");
+const mongooseConnection = require("../helpers/mongoose-connection");
 
 const { expect } = chai;
 
 chai.use(dirtyChai);
 
-describe('integration', () => {
+describe("integration", () => {
   let app;
   let dbConnection;
   let request;
@@ -24,7 +24,7 @@ describe('integration', () => {
     app = koaApp();
     server = app.listen();
     request = supertest.agent(server);
-    Session = dbConnection.model('Session');
+    Session = dbConnection.model("Session");
   });
 
   after(async () => {
@@ -33,37 +33,37 @@ describe('integration', () => {
     server.close();
   });
 
-  describe('happy path', () => {
-    it('should create a session', async () => {
+  describe("happy path", () => {
+    it("should create a session", async () => {
       const response = await request
-        .post('/sessions')
-        .type('form')
-        .send({ foo: 'bar' })
+        .post("/sessions")
+        .type("form")
+        .send({ foo: "bar" })
         .expect(201);
 
-      [ , sessionId ] = response.headers['set-cookie'][0].match(/koa:sess=(.*?);/);
+      [, sessionId] = response.headers["set-cookie"][0].match(
+        /koa:sess=(.*?);/
+      );
       const session = await Session.findById(sessionId);
 
       expect(session).to.exist();
-      expect(session.data.foo).to.equal('bar');
+      expect(session.data.foo).to.equal("bar");
     });
 
-    it('should update a session', async () => {
+    it("should update a session", async () => {
       await request
         .put(`/sessions/${sessionId}`)
-        .send({ foo: 'baz' })
+        .send({ foo: "baz" })
         .expect(200);
 
       const session = await Session.findById(sessionId);
 
       expect(session).to.exist();
-      expect(session.data.foo).to.equal('baz');
+      expect(session.data.foo).to.equal("baz");
     });
 
-    it('should remove a session', async () => {
-      await request
-        .delete(`/sessions/${sessionId}`)
-        .expect(204);
+    it("should remove a session", async () => {
+      await request.delete(`/sessions/${sessionId}`).expect(204);
 
       const session = await Session.findById(sessionId);
 
@@ -71,42 +71,44 @@ describe('integration', () => {
     });
   });
 
-  describe('missing session', () => {
-    it('should create a session', async () => {
+  describe("missing session", () => {
+    it("should create a session", async () => {
       const response = await request
-        .post('/sessions')
-        .type('form')
-        .send({ foo: 'bar' })
+        .post("/sessions")
+        .type("form")
+        .send({ foo: "bar" })
         .expect(201);
 
-      [ , sessionId ] = response.headers['set-cookie'][0].match(/koa:sess=(.*?);/);
+      [, sessionId] = response.headers["set-cookie"][0].match(
+        /koa:sess=(.*?);/
+      );
       const session = await Session.findById(sessionId);
 
       expect(session).to.exist();
-      expect(session.data.foo).to.equal('bar');
+      expect(session.data.foo).to.equal("bar");
     });
 
-    it('should create a new session when previous session is not found', async () => {
+    it("should create a new session when previous session is not found", async () => {
       const oldSessionId = sessionId;
       await Session.remove({ _id: oldSessionId });
 
       const response = await request
         .put(`/sessions/${sessionId}`)
-        .send({ foo: 'baz' })
+        .send({ foo: "baz" })
         .expect(200);
 
-      [ , sessionId ] = response.headers['set-cookie'][0].match(/koa:sess=(.*?);/);
+      [, sessionId] = response.headers["set-cookie"][0].match(
+        /koa:sess=(.*?);/
+      );
       const session = await Session.findById(sessionId);
 
       expect(sessionId).to.not.equal(oldSessionId);
       expect(session).to.exist();
-      expect(session.data.foo).to.equal('baz');
+      expect(session.data.foo).to.equal("baz");
     });
 
-    it('should remove a session', async () => {
-      await request
-        .delete(`/sessions/${sessionId}`)
-        .expect(204);
+    it("should remove a session", async () => {
+      await request.delete(`/sessions/${sessionId}`).expect(204);
 
       const session = await Session.findById(sessionId);
 
