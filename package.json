@@ -38,7 +38,7 @@
     "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
     "koa-session": "^5.12.3",
-    "mocha": "^6.2.2",
+    "mocha": "^10.2.0",
     "mongoose": "^5.8.2",
     "nyc": "^14.1.1",
     "prettier": "^1.19.1",
